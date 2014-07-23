@@ -1,68 +1,139 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>TODO supply a title</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
-<body>
-    <div>TODO write content</div>
-    <script type="text/javascript">
-        console.log("hello");
-        console.log("world");
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width">
+    </head>
+    <body>
+        <div>TODO write content</div>
         
-        var myvar = 10;
-        var myvar2 = true;
-        var myvar3 = new Array();
         
-        console.log(myvar);
-        console.log(myvar2);
-        console.log(myvar3);
-        
-        var mystring = "hello";
-        var mynumber = 100;
-        var myboolean = false;
-        var myarray = [];
-        
-        var num = 10,
-            str = '10';
-        
-        if(num == str){     //checks value
-            console.log("double is true");
-        }
-        else{
-            console.log("double is false")
-        }
-        if(num === str){    //checks value and type
-            console.log("triple is true");
-        }
-        else{
-            console.log("triple is false")
-        }
-        if(myboolean == 0){
-            console.log("bool is false");
-        }
-        else{
-            console.log("bool is true")
-        }
-        
-        for(var i = 1; i <= 10; i++){
-            console.log(i);
-        }
-        
-        myarray = [0,0,0,0];
-        myarray.push(1);
-        console.log(myarray.length);
-        console.log(myarray);
-        console.log(myarray[4]);
-        
-        newArr = ['a','b','c'];
-        
-        if(newArr.length > 0){
-            for(var i = newArr.length-1; i >= 0; i--){
-                console.log(newArr[i]);
+        <script type="text/javascript">
+            /*
+             * Console.log is used for debuging only
+             * it helps to log information about your 
+             * program so you know and understand the
+             * flow of your script.
+             * 
+             */
+            console.log('hello');
+            console.log("world");
+            
+            /*
+             * When you declare a variable you must always use
+             * the keyword 'var' e.g. var myvar = 1;
+             * 
+             *  If you do not use the keyword var then it will
+             *  scope the variable as a global variable.
+             *  
+             *   Once you declare a variable with var you do not need
+             *   to redeclare the variable with var again. 
+             *   
+             *   Remember variables are case sensitive
+             *   myvar does not equal myVAR
+             */
+            var myvar = 'hi';
+            
+            myVar = 10;
+            
+            var myvar2 = true;
+            var myvar3 = new Array();
+            
+            console.log(myVar);
+            console.log(myvar2);
+            console.log(myvar3);
+            
+            /*
+             * variable types
+             * boolean, number, string, array.
+             * 
+             * Others to learn down the road
+             * function, object/JSON, regex
+             * 
+             * 
+             */
+                        
+            var mystring = 'hello'; // string
+            var mynumber = 100; // number
+            var myBoolen = false; // boolean
+            var myArray = []; // array
+            
+            
+            var num = 1,
+                str = '10',
+                bool = true;
+            
+            
+            /* Put Comments here for lines 72-82
+             *  
+             *  Using if statements with double and single equal signs to
+             *  demonstrate how they match value only and value along with type.
+             */
+            
+            if ( num == bool ) {
+                console.log("double is true");
+            } else {
+                console.log("double is false");
             }
-        }
-    </script>
-</body>
+            
+            if ( num === bool ) {
+                 console.log("triple is true");
+            } else {
+                console.log("triple is false");
+            }
+            
+            
+            if ( false ) {
+                
+            } else if( true ) { 
+                
+            } else {
+                
+            }
+            
+            
+            /* Put Comments here for lines 97-103
+             * 
+             * Incrementing var i with two for loops to demonstrate the
+             * difference between checking with < and <= 10.
+             */
+            for ( var i = 1; i < 10; i++ ) {
+                console.log(i);
+            }
+            
+            for ( var i = 1; i <= 10; i++ ) {
+                console.log(i);
+            }
+            
+            var myArr = ['sdfsdf','sfsdfsdf','jmhjmhmhjm'];
+            
+            myArr.push('ssgssdf');
+            myArr.push('seewrrt');
+            myArr.push('tytyhtyh');
+            myArr[myArr.length] = 'hello';
+            
+            console.log(myArr.length);
+            console.log(myArr);
+            console.log(myArr[2]);
+            
+            myVar = [];
+            
+             /* Put Comments here for lines 122-126
+             * 
+             * If statement checks that the array has the appropriate length to
+             * run the for loop, which assumes the length is greater than 0.
+             */
+            
+            if ( myVar.length ) {
+                for ( var i = myArr.length-1; i >= 0; i-- ) {
+                    console.log(myArr[i]);
+                }
+            }
+            
+            
+            
+            
+        </script>        
+    </body>
 </html>
