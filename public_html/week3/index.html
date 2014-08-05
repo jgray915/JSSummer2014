@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width">
+    </head>
+    <body>
+        <div>TODO write content</div>
+        
+        <script type="text/javascript">
+            
+             /*
+             * MATH
+
+                In JS there is a global MATH object.  It has basic math functions that can be used.
+
+                var PI = Math.PI; // Returns PI
+                var Squareroot = Math.sqrt(16); // Returns the square root of 16
+                var round = Math.round(2.5);  // 3
+
+                Use the Keyword Math to access the properties and methods.
+
+
+                Math.random()
+                It will return a number between 0 and 1.
+                The result is a float and when called could be : 0.75945417252877077 
+                Just a note, all JS numbers are floats.
+                You can use Math.random() to get a number between 1-10 like so.
+                var one_ten = ( Math.random()*10+1);
+                You still get a float so to remove it use the Math.floor() method(function).
+                var one_ten = Math.floor ( Math.random()*10+1);
+
+
+                ceil(x)
+                Returns x, rounded upwards to the nearest integer
+
+                floor(x)
+                Returns x, rounded downwards to the nearest integer
+
+                max(x,y,z,...,n)
+                Returns the number with the highest value
+                min(x,y,z,...,n)
+                Returns the number with the lowest value
+
+                random()
+                Returns a random number between 0 and 1
+
+                round(x)
+                Rounds x to the nearest integer
+
+             */
+            
+            
+            
+            console.clear();
+           
+            function rand(){
+                return Math.floor(Math.random()*10+1);
+            }
+
+            function choice(arr){
+                return arr[Math.floor(Math.random()*arr.length)];
+            }
+            
+            function changeTitle(str){
+                document.title = str;
+            }
+            
+            var list = ["dog", "cat", "bird", "snake", "frog","turtle"];
+            console.log(choice(list));
+            changeTitle("New Title");
+        </script>
+    </body>
+</html>
