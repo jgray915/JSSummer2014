@@ -11,6 +11,35 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <div>TODO write content</div>
+        
+        <form>
+            EMAIL
+            <input type="text" id="email">
+            COLOR
+            <input type="text" id="color">
+            <input type="button" id="submit" value="Set color">
+        </form>
+        
+        <script type="text/javascript">
+            var txtColor = document.getElementById("color");
+            var btnSubmit = document.getElementById("submit");
+            
+            function changeBG(){
+                var newColor = txtColor.value;
+                document.body.style.backgroundColor = newColor;
+            }
+            
+            btnSubmit.addEventListener("click", changeBG);
+            
+              var savedEmail;
+              var txtEmail = document.getElementById("email");
+              
+              function saveEmail(){
+                  savedEmail = txtEmail.value;
+              }
+              
+              txtEmail.addEventListener("blur", saveEmail)
+        </script>
+            
     </body>
 </html>
