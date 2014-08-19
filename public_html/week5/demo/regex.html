@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div>TODO write content</div>
+        
+        <input name="email" type="email" id="email">
+        <button id="test">Test</button>
+        
+        <script type="text/javascript">
+            
+            //var reg1 = /[a-z];
+            //var reg2 = new RegExp("[a-z]");
+            var btnTest = document.getElementById("test");
+            var txtEmail = document.getElementById("email");
+            var emailRegex = /^[a-zA-Z]+[@]{1}[a-zA-Z]+[.][com|edu]{2,3}$/;
+            
+            function testEmail(){
+                if(emailRegex.test(txtEmail.value)){
+                    console.log("valid");
+                }
+                else{
+                    console.log("invalid");
+                }
+            }
+            
+            btnTest.addEventListener("click", testEmail);
+            
+        </script>
+            
+    </body>
+</html>
