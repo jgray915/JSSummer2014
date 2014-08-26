@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body onLoad="start();">
+        <div id='div'>TODO write content</div>
+        <script type='text/javascript'>
+            var div = document.getElementById('div');
+
+            function randColor(){
+                    var r = Math.floor(Math.random() * 255);
+                    var g = Math.floor(Math.random() * 255);
+                    var b = Math.floor(Math.random() * 255);
+                    
+                div.style.backgroundColor = "rgb("+r+","+g+","+r+")";
+            }
+            
+            function start(){
+                setInterval(randColor, 100);
+            }
+        </script>
+    </body>
+</html>
