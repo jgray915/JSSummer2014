@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            div{
+                border: 1px solid black;
+                height: 20px;
+                padding: 10px;
+                width: 140px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="div">TODO write content</div>
+        <button id="borderBtn" onclick="start();"> Change Border </button>
+        <script type="text/javascript">
+        
+        var counter = 20;
+        var px = 2;
+        
+        function start(){
+            setInterval(grow, 100);
+        }
+        
+        function grow(){
+            if(counter >= 0){
+                document.getElementById("div").style.borderRadius = px + "px";
+                counter--;
+                px++;
+            }
+        }
+        </script>
+    </body>
+</html>

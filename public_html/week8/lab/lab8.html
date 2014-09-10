@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            div{
+                position: absolute;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="div">TODO write content</div>
+        <br />
+        <button id="btnIn" onclick="startFadeIn();"> Fade In </button>
+        <button id="btnOut" onclick="startFadeOut();"> Fade Out </button>
+        <button id="btnMove" onclick="startMoveDiv();"> Move Div </button>
+        <script type="text/javascript">
+
+            var div = document.getElementById("div");
+            var divOpacity = 0;
+            var divLeft = 10;
+            
+            div.style.left = divLeft;
+            setTimeout(alertmsg, 5000);
+            
+            function alertmsg(){
+                alert("Five seconds have passed.");
+            }
+            
+            function startFadeIn(){
+                divOpacity = 0;
+                div.style.opacity = 0;
+                setTimeout(fadeIn(), 100);
+            }
+            
+            function fadeIn(){
+                if(divOpacity < 100){
+                    divOpacity += 10;
+                    div.style.opacity = divOpacity/100;
+                    console.log(div.style.opacity);
+                    setTimeout(fadeIn, 100); 
+                }
+            }
+            
+            function startFadeOut(){
+                divOpacity = 100;
+                div.style.opacity = 0;
+                setTimeout(fadeOut(), 100);
+            }
+            
+            function fadeOut(){
+                if(divOpacity > 0){
+                    divOpacity -= 10;
+                    div.style.opacity = divOpacity/100;
+                    setTimeout(fadeOut, 100); 
+                }
+            }
+            
+            function startMoveDiv(){
+                setTimeout(moveDiv, 100);
+            }
+            
+            function moveDiv(){
+                divLeft += 10;
+                div.style.left = divLeft + "px";
+            }
+            
+        </script>
+    </body>
+</html>
