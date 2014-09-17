@@ -17,17 +17,34 @@
             
             var can = document.getElementById("tutorial");
             var ctx = can.getContext("2d");
-            var height = 20,
+            var h = 20,
                 y = 400,
                 x = 150;
         
             function growRect() {
+                if(h < 300)
+                {
+                    console.log("start");
+                    h += 20;
                     ctx.fillRect(x, y-h, 50, h);
+                    setTimeout(growRect, 100);
+                }
+                else
+                {
+                    moveRect();
+                }
             }
+            growRect();
             
             function moveRect()
             {
-                ctx.fillRect(x, y0h, 50, h);
+                if(x< can.width-100)
+                {
+                    ctx.clearRect(0,0,can.width,can.height);
+                    x += 20;
+                    ctx.fillRect(x, y-h, 50, h);
+                    setTimeout(moveRect, 100);
+                }
             }
             
         </script>

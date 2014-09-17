@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width">
+        <style type="text/css">
+            canvas {
+                border: 1px solid black;
+            }
+        </style>
+    </head>
+    <body>
+        <canvas id="tutorial" width="750" height="55"></canvas>
+        <br />
+        <button id="replay" onclick="restart()">Replay</button>
+
+        <script type="text/javascript">
+
+            var can = document.getElementById("tutorial");
+            var ctx = can.getContext("2d");
+            
+            //set runners globally
+            var redX = 0, blueX = 0;
+            
+            //update red randomly
+            function moveRed()
+            {
+               if(redX < 700)
+                {
+                    ctx.fillStyle = "red";
+                    ctx.fillRect(redX, 5, 20, 20);
+                    redX += Math.floor((Math.random() * 20) + 1);
+                }
+            }
+            
+            //update blue randomly
+            function moveBlue()
+            {
+                if(blueX  < 700)
+                {
+                    ctx.fillStyle = "blue";
+                    ctx.fillRect(blueX, 30, 20, 20);
+                    blueX += Math.floor((Math.random() * 20) + 1);        
+                }
+            }
+            
+            //draw finish line
+            function drawLine()
+            {
+                ctx.beginPath();
+                ctx.moveTo(700, 0);
+                ctx.lineTo(700, can.height);
+            }
+            
+            function main()
+            {
+                drawLine();
+                
+                //while red and blue have not finished
+                if(redX + 10 < 700 && blueX + 10 < 700)
+                {
+                    ctx.clearRect(0,0,can.width, can.height);
+                    moveRed();
+                    moveBlue();
+                    
+                    ctx.stroke();
+                    setTimeout(main, 100);
+                }
+                //if red finishes
+                else if(redX + 10 > 700)
+                {
+                    ctx.stroke();
+                    ctx.fillStyle = "red";
+                    ctx.font = "12px Monospace";
+                    var string = "Red Wins!";
+                    ctx.fillText(string, can.height/2, can.height/2);
+                }
+                //if red finishes
+                else
+                {
+                    ctx.stroke();
+                    ctx.fillStyle = "blue";
+                    ctx.font = "12px Monospace";
+                    var string = "Blue Wins!";
+                    ctx.fillText(string, can.height/2,  can.height/2);
+                }
+            }
+            
+            //start program
+            main();
+            
+            //restart program
+            function restart(){
+                blueX = 0;
+                redX = 0;
+                main();
+            }
+        </script>
+    </body>
+</html>

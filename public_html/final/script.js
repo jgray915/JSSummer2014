@@ -41,10 +41,12 @@
     //set variables
     var fullName = document.getElementById('fullname');
     var email = document.getElementById('email');
+    var phone = document.getElementById("phone");
     var comments = document.getElementById('description');
    
     var fullNameErr = document.getElementById("fullname_err");
     var emailErr = document.getElementById("email_err");
+    var phoneErr = document.getElementById("phone_err");
     var commentsErr = document.getElementById("description_err");
     
     var data = document.getElementById("data");
@@ -90,7 +92,6 @@ function phoneValidate(str)
 
 function submitForm() 
 {
-	
     //just a list of functions
     console.clear();
     checkInputs();
@@ -144,7 +145,7 @@ function checkInputs()
             hasError = true;
             email.classList.remove('good');
             email.classList.add('bad');       
-            emailErr.innerHTML = "<p>Email is invalid.</p>";
+            emailErr.innerHTML = "<p>Phone number is invalid.</p>";
             console.log("email chars bad");
         }
     } 
@@ -152,12 +153,37 @@ function checkInputs()
         hasError = true;
         email.classList.remove('good');
         email.classList.add('bad');       
-        emailErr.innerHTML = "<p>Must enter an email.</p>";
+        emailErr.innerHTML = "<p>Must enter a phone number.</p>";
         console.log("email length bad");
     }
 
     //phone
-    //TODO
+    if(phone.value.length){
+        phone.classList.remove('bad');
+        phone.classList.add('good');        
+        phoneErr.innerHTML = ''; 
+        console.log("email length good");
+        if(emailValidate(phone.value)){
+            phone.classList.remove('bad');
+            phone.classList.add('good');        
+            phoneErr.innerHTML = ''; 
+            console.log("email chars good");
+        } 
+        else {
+            hasError = true;
+            phone.classList.remove('good');
+            phone.classList.add('bad');       
+            phoneErr.innerHTML = "<p>Phone number is invalid.</p>";
+            console.log("email chars bad");
+        }
+    } 
+    else {
+        hasError = true;
+        phone.classList.remove('good');
+        phone.classList.add('bad');       
+        phoneErr.innerHTML = "<p>Must enter a phone number.</p>";
+        console.log("email length bad");
+    }
     
     //comments
     if(comments.value.length && comments.value.length < 150){
