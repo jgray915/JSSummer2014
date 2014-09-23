@@ -1,62 +1,52 @@
-// When a user returns to the page all the data stored locally must appear on 
-// the page and continue where you left off.  For ease of use please 
-// show inline error messages for incomplete fields and clear all the data 
-// once a data set has been saved.
-
-// 1. Validate all fields using regex.  (20 points)
-//      a. Full name: only spaces and letters allowed
-//      b. Email: only letters@letters.[3 charaters]
-//      c. Phone: xxx-xxx-xxxx
-//      d. Description: No HTML allowed
-
-// 2. Show inline error messages if a field in not properly inputted.  (10 points)
-
-// 3. Once all fields have been properly inputted, clear all the fields to allow
-//      the user to enter the next data set. (10 points)
-
-// 4. The save feature should save the data to localStorage (20 points)
-//      a. Use the localStorage.setItem([key], [value]) and 
-//          localStorage.getItem([key]) functions to help you do this.
-//      b. Use JSON. stringify([variable]) when saving the data and 
-//          JSON.parse([variable]) then getting the data.
-
-// 5. When the data is saved display it in the table below the field. (10 points)
-
-// 6. The clear feature should clear the local storage.  (10 points)
-//      a. localStorage.clear();
-
-// 7. Deleting the last row should remove the last item in data set. (10 points)
-//      a. You might want to store the data in an array of JSON objects like we did in week 3.
-
-// 8. Please add comments in your code. (10 points)
-
-// 9. Extra Credit
-//      a. Add a search feature to be able to find a record by email. Display 
-//      the result inline next to the search. (20 points)
-//      b. Instead of just being able to delete the last item, I would like to 
-//      specify which row to delete.  Add a delete button to the row and allow 
-//      the user to delete any row they would like. (30 points)
-
-
-    //set variables
-    var fullName = document.getElementById('fullname');
-    var email = document.getElementById('email');
-    var phone = document.getElementById("phone");
-    var comments = document.getElementById('description');
-   
-    var fullNameErr = document.getElementById("fullname_err");
-    var emailErr = document.getElementById("email_err");
-    var phoneErr = document.getElementById("phone_err");
-    var commentsErr = document.getElementById("description_err");
+ // User Data Form
+ /*   by Jacob Gray
     
-    var data = document.getElementById("data");
-    var content = document.getElementById("content");
-    
-    var hasError = false;
+    Validates form data and saves to local storage.
+ 
+    TODO:
+    -write comments
+    -implement search by email
+    */
 
-/****************\
- REUSED FUNCTIONS
-\****************/
+
+
+// VARIABLES *******************************************************************
+
+var fullName = document.getElementById('fullname');
+var email = document.getElementById('email');
+var phone = document.getElementById("phone");
+var comments = document.getElementById('description');
+
+var fullNameErr = document.getElementById("fullname_err");
+var emailErr = document.getElementById("email_err");
+var phoneErr = document.getElementById("phone_err");
+var commentsErr = document.getElementById("description_err");
+
+var data = document.getElementById("data");
+var content = document.getElementById("content");
+var tableData = document.getElementById("tableData");
+
+var btnSave = document.getElementById("saveData");
+var btnSearch = document.getElementById("searchButton");
+var btnDelete = document.getElementById("deleteLastRowData");
+var btnClear = document.getElementById("clearData");
+
+
+
+// EVENTS **********************************************************************
+
+btnSave.addEventListener("click", submitForm);
+btnSearch.addEventListener("click", searchRecords);
+btnDelete.addEventListener("click", deleteLast);
+btnClear.addEventListener("click", clearRecords);
+
+//show any saved data on page load
+document.onload = loadData();
+
+
+
+// VALIDATION ******************************************************************
+//Functions return true if their inputs match their regex.
 
 function emailValidate(str)
 {
@@ -72,169 +62,328 @@ function SpaceAlphaValidate(str)
 
 function idHTML(str) 
 {
-    console.log(str);
     var htmlRegex = /\<(.*?)\>/;
     return htmlRegex.test(str);
 }
 
-/*************\
- NEW FUNCTIONS
-\*************/
 function phoneValidate(str)
 {
     var phoneRegex = /(\d{3})-(\d{3})-(\d{4})/;
     return phoneRegex.test(str);
 }
 
-/*************\
- SUBMIT BUTTON
-\*************/
+
+
+// FORM DATA *******************************************************************
 
 function submitForm() 
 {
-    //just a list of functions
-    console.clear();
-    checkInputs();
+    console.log("submitting");
+    //If the inputs are good, save the data, clear the form, update the record
+    if(checkInputs())
+    {
+        saveData();
+        clearForm();
+        loadData();
+    }
 }
 
 function checkInputs()
 {
-    //input checking
+    console.log("checking inputs");
+    //Returns true/false if inputs valid/invalid.
+    //Long function, four fields.
+    var hasError = false;
+
+
 
     //fullName
-    if(fullName.value.length){
+    if(fullName.value.length)
+    {
+        console.log("   fullname true");
         fullName.classList.remove('bad');
         fullName.classList.add('good');        
         fullNameErr.innerHTML = ''; 
-        console.log("fullName length good");
-        if(SpaceAlphaValidate(fullName.value)){
+        if(SpaceAlphaValidate(fullName.value))
+        {
+           console.log("   fullname valid");
            fullName.classList.remove('bad');
            fullName.classList.add('good');        
            fullNameErr.innerHTML = ''; 
-           console.log("fullName chars good");
-       } 
-       else {
-           hasError = true;
-           fullName.classList.remove('good');
-           fullName.classList.add('bad');       
-           fullNameErr.innerHTML = "<p>First name contains invalid characters.</p>"; 
-           console.log("fullName chars bad");
-       }
+        } 
+        else 
+        {
+            console.log("   fullname invalid");
+            hasError = true;
+            fullName.classList.remove('good');
+            fullName.classList.add('bad');       
+            fullNameErr.innerHTML = "First name contains invalid characters."; 
+        }
     } 
-    else {
+    else 
+    {
+        console.log("   fullname false");
         hasError = true;
         fullName.classList.remove('good');
         fullName.classList.add('bad');       
-        fullNameErr.innerHTML = "<p>Must enter a first name.</p>";
-        console.log("fullName length bad");
+        fullNameErr.innerHTML = "Must enter a first name.";
     }
 
+
+
     //email
-    if(email.value.length){
+    if(email.value.length)
+    {
+        console.log("   email true");
         email.classList.remove('bad');
         email.classList.add('good');        
         emailErr.innerHTML = ''; 
-        console.log("email length good");
-        if(emailValidate(email.value)){
+        if(emailValidate(email.value))
+        {
+            console.log("   email valid");
             email.classList.remove('bad');
             email.classList.add('good');        
             emailErr.innerHTML = ''; 
-            console.log("email chars good");
         } 
-        else {
+        else 
+        {
+            console.log("   email invalid");
             hasError = true;
             email.classList.remove('good');
             email.classList.add('bad');       
-            emailErr.innerHTML = "<p>Phone number is invalid.</p>";
-            console.log("email chars bad");
+            emailErr.innerHTML = "Email is invalid.";
         }
     } 
-    else {
+    else 
+    {
+        console.log("   email false");
         hasError = true;
         email.classList.remove('good');
         email.classList.add('bad');       
-        emailErr.innerHTML = "<p>Must enter a phone number.</p>";
-        console.log("email length bad");
+        emailErr.innerHTML = "Must enter an Email.";
     }
 
+
+
     //phone
-    if(phone.value.length){
+    if(phone.value.length)
+    {
+        console.log("   phone true");
         phone.classList.remove('bad');
         phone.classList.add('good');        
         phoneErr.innerHTML = ''; 
-        console.log("email length good");
-        if(emailValidate(phone.value)){
+        if(phoneValidate(phone.value))
+        {
+            console.log("   phone valid");
             phone.classList.remove('bad');
             phone.classList.add('good');        
             phoneErr.innerHTML = ''; 
-            console.log("email chars good");
         } 
-        else {
+        else 
+        {
+            console.log("   phone invalid");
             hasError = true;
             phone.classList.remove('good');
             phone.classList.add('bad');       
-            phoneErr.innerHTML = "<p>Phone number is invalid.</p>";
-            console.log("email chars bad");
+            phoneErr.innerHTML = "Phone number is invalid.";
         }
     } 
-    else {
+    else 
+    {
+        console.log("   phone false");
         hasError = true;
         phone.classList.remove('good');
         phone.classList.add('bad');       
-        phoneErr.innerHTML = "<p>Must enter a phone number.</p>";
-        console.log("email length bad");
+        phoneErr.innerHTML = "Must enter a phone number.";
     }
     
+    
+    
     //comments
-    if(comments.value.length && comments.value.length < 150){
+    if(comments.value.length && comments.value.length < 150)
+    {
+        console.log("   comments true");
         comments.classList.remove('bad');
         comments.classList.add('good');        
         commentsErr.innerHTML = '';
-        console.log("comments length good");
-        if(!idHTML(comments.value)){
+        if(!idHTML(comments.value))
+        {
+            console.log("   comments valid");
             comments.classList.remove('bad');
             comments.classList.add('good');        
             commentsErr.innerHTML = '';
-            console.log("comments chars good");
         }
-        else {
+        else 
+        {
+            console.log("   comments invalid");
             hasError = true;
             comments.classList.remove('good');
             comments.classList.add('bad');       
-            commentsErr.innerHTML = "<p>Comments cannot contain html tags.</p>";
-            console.log("comments chars bad");
+            commentsErr.innerHTML = "Comments cannot contain html tags.";
         }
     }
-    else {
+    else 
+    {
+        console.log("   comments false");
         hasError = true;
         comments.classList.remove('good');
         comments.classList.add('bad');       
-        commentsErr.innerHTML = "<p>Comments must be between one and 150 characters.</p>"; 
-        console.log("comments length bad");
+        commentsErr.innerHTML = "Comments must be between 1-150 characters."; 
     }
+    
+    
+    return !hasError;
+    
 }
+
+function clearForm()
+{
+    fullname.value = "";
+    email.value = "";
+    phone.value = "";
+    comments.value = "";
+}
+
+
+
+// LOCAL STORAGE ***************************************************************
 
 function saveData()
 {
+    console.log("saving data");
+    /* Local storage holds a single string under the key "records." The string
+       parses out to an array of JSON objects, one for each of the data sets.
+    */
+   
+    //Set 'records' to the parsed array of records, else an empty array
+    var records = JSON.parse(localStorage.getItem("records")) || [];
+    var newRecord = 
+    {   
+        "fullname":"",
+        "email":"",
+        "phone":"",
+        "comments":""
+    };
 
+    newRecord.fullname = fullname.value;
+    newRecord.email = email.value;
+    newRecord.phone = phone.value;
+    newRecord.comments = comments.value;
+    
+    //Add newRecord object to end of array
+    records.push(newRecord);
+    
+    //Stringify records and put into localStorage
+    localStorage.setItem("records", JSON.stringify(records));
 }
 
-function clearData()
+function deleteLast()
 {
+    console.log("deleting last record");
+    var records = JSON.parse(localStorage.getItem("records")) || [];
 
+    //Uses pop to remove last item from array
+    records.pop();
+
+    localStorage.setItem("records", JSON.stringify(records));
+    
+    loadData();
 }
 
-function clearLast()
+function clearRecords()
 {
-
-}
-
-function deleteRecord()
-{
-
+    console.log("clearing records");
+    localStorage.clear();
+    
+    loadData();
 }
 
 function searchRecords()
 {
+    console.log("searching");
+    var records = JSON.parse(localStorage.getItem("records")) || [];
+    var term = document.getElementById("search").value;
+    var results = document.getElementById("searchResults");
+    var output = "<table><thead> <tr><th>Name</th><th>E-mail</th> <th>Phone</th><th>Description</th> </tr> </thead><tr>";
+    var numResults = 0;
+    
+    //Look to match each email, counting each match and adding it to the output
+    for(var i = 0; i < records.length; i++)
+    {
+        var record = records[i];
+        
+        if(term === record.email)
+        {
+            numResults++;
+            output += "<td>"+record.fullname+"</td>";
+            output += "<td>"+record.email+"</td>";
+            output += "<td>"+record.phone+"</td>";
+            output += "<td>"+record.comments+"</td>";
+            output += "</tr>";
+        }
+    }
+    
+    output += "</table>";
+    
+    //Return counted results, not found message or enter email message
+    if(numResults)
+    {
+        output = "<p>"+numResults+" matches found:</p>"+output;
+        results.innerHTML = output;     
+    }
+    else if(term)
+    {
+        results.innerHTML = "E-mail '"+term+"' not found";
+    }
+    else
+    {
+        results.innerHTML = "Please enter an e-mail.";
+    }
+}
 
+function loadData()
+{
+    console.log("loading data");
+    /* If there are records, this function generates all the html table code for
+       each one, with its index in a call to deleteIndex for the delete button.
+    */
+    var records = JSON.parse(localStorage.getItem("records")) || [];
+    var table = "";
+  
+    if(records.length !== 0)
+    {
+        for(var i = 0; i < records.length; i++)
+        {
+            var record = records[i];
+            table += "<tr>";
+            table += '<td><input type="button" value="Delete" onclick="deleteIndex('+i+')"/></td>';
+            table += "<td>"+record.fullname+"</td>";
+            table += "<td>"+record.email+"</td>";
+            table += "<td>"+record.phone+"</td>";
+            table += "<td>"+record.comments+"</td>";
+            table += "</tr>";
+        }
+        
+        tableData.innerHTML = table;
+    }
+    else
+    {
+        tableData.innerHTML = "";
+    }
+}
+
+function deleteIndex(index)
+{
+    console.log("deleting at index");
+    /* loadData puts the call to this function for each record along with its 
+       index in the html it generates for the table. This function uses splice
+       to move to the index and remove that one record.
+    */
+    var records = JSON.parse(localStorage.getItem("records"));
+    
+    records.splice(index, 1);
+    
+    localStorage.setItem("records", JSON.stringify(records));
+    
+    loadData();
 }

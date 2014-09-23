@@ -10,7 +10,7 @@
         <form name="mainform" id="mainform" action="" class="basic-grey">
             <div id="content">
                 <fieldset>
-                    <legend>Personal information</legend> 
+                    <legend>Personal Information</legend> 
                     <label for="fullname">Name:</label> 
                     <input id="fullname" name="name" type="text" size="30" placeholder="Full name" />
                     <span id="fullname_err"></span>
@@ -28,20 +28,19 @@
                     <span id="description_err"></span>
 
                     <br />
-                    <input id="saveData" type="button" value="Save Data" onclick="submitForm()"/>
+                    <input id="saveData" type="button" value="Save Data" />
                 </fieldset>
             </div>
         </form>
         <br />
         
+        <!-- Code added for search by email ******************************** -->
         <label for="search">Search Records by Email:</label> <br />
-        <input id="search" name="search" type="text" size="30" placeholder="sample@email.com" /> <br /> <br />
-        <input id="searchButton" type="button" value="Search" /> <br /> <br />
-
-        <input id="deleteLastRowData" type="button" value="Delete Last Row" />
-        <input id="clearData" type="button" value="Clear All Data" />
-        <br /> <br />
-
+        <input id="search" name="search" type="text" size="30" placeholder="sample@email.com" /> 
+        <input id="searchButton" type="button" value="Search" /> <br />
+        <span id="searchResults"></span>
+        <br />
+        
         <div class="CSSTableGenerator">
             <table>
                 <thead>
@@ -57,7 +56,12 @@
                 </tbody>
             </table>
         </div>
+        <br />
         
+        <!-- Code added to delete data ************************************* -->
+        <input id="deleteLastRowData" type="button" value="Delete Last Row" />
+        <input id="clearData" type="button" value="Clear All Data" />
+
          <script type="text/javascript" src="script.js"></script>
     </body>
 </html>
